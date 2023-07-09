@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
+import { createUniqueRandomId } from "@/utils/utilFunctions";
 
 export interface MyData {
 	taskId: number;
@@ -29,13 +30,6 @@ export async function POST(request: NextRequest) {
 	const fileName = `task-data.json`;
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
-
-	function createUniqueRandomId() {
-		const randomNumber = Math.random() * 100000000;
-		const randomString = String(randomNumber);
-		const uniqueId = randomString.replace(".", "").replace("0", "");
-		return uniqueId;
-	}
 
 	jsonData.push({
 		taskId: createUniqueRandomId(),
