@@ -1,6 +1,14 @@
+<<<<<<< Updated upstream
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+=======
+"use client";
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { StoreProvider, TaskStore } from "../store/store";
+>>>>>>> Stashed changes
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,9 +22,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+<<<<<<< Updated upstream
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   )
+=======
+	const store = new TaskStore();
+
+	console.log(store.tasks);
+	return (
+		<html lang="en">
+			<body className={inter.className}>
+				<StoreProvider value={TaskStore}>{children}</StoreProvider>
+			</body>
+		</html>
+	);
+>>>>>>> Stashed changes
 }
