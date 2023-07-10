@@ -24,6 +24,9 @@ class TaskStore {
 
 	async fetchTasks() {
 		try {
+			if (!BASE_URL) {
+				throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
+			}
 			const response = await axios.get(BASE_URL);
 			this.tasks = response.data;
 			return this.tasks;
@@ -34,6 +37,9 @@ class TaskStore {
 
 	async createTask(task: TaskType) {
 		try {
+			if (!BASE_URL) {
+				throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
+			}
 			const response = await axios.post(BASE_URL, task);
 			if (response.status) {
 				("Task Submitted Successfully!");
