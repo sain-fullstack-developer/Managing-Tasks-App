@@ -8,7 +8,7 @@ export function createUniqueRandomId() {
 
 // constants
 export const fileName = `task-data.json`;
-export const BASE_URL: string | undefined = process.env.NEXT_PUBLIC_BASE_URL;
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 // types
 

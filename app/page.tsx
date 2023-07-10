@@ -27,7 +27,7 @@ function Home() {
 	const ProgressCount = store?.tasks?.filter(
 		(task) => task.status === "inprogress"
 	);
-	const CompletedCount = store.tasks.filter(
+	const CompletedCount = store?.tasks?.filter(
 		(task) => task.status === "completed"
 	);
 
