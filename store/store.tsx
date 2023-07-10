@@ -69,7 +69,10 @@ class TaskStore {
 	async deleteTask(id: number | undefined) {
 		try {
 			const response = await axios.delete(`${BASE_URL}/${id}`);
-			this.tasks = this.tasks?.filter((task) => task.taskId !== id);
+
+			if (this.tasks) {
+				this.tasks = this.tasks?.filter((task) => task.taskId !== id);
+			}
 		} catch (error) {
 			console.error("Error failed task deletion:", error);
 		}

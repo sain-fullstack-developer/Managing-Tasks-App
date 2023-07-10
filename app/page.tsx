@@ -23,13 +23,15 @@ function Home() {
 	}, [store]);
 
 	const TotalCount = store?.tasks?.length;
-	const ToDosCount = store?.tasks?.filter((task) => task.status === "todo");
-	const ProgressCount = store?.tasks?.filter(
-		(task) => task.status === "inprogress"
-	);
-	const CompletedCount = store?.tasks?.filter(
-		(task) => task.status === "completed"
-	);
+	const ToDosCount = store?.tasks
+		? store?.tasks?.filter((task) => task.status === "todo")
+		: "";
+	const ProgressCount = store?.tasks
+		? store?.tasks?.filter((task) => task.status === "inprogress")
+		: "";
+	const CompletedCount = store?.tasks
+		? store?.tasks?.filter((task) => task.status === "completed")
+		: "";
 
 	return (
 		<main className="bg-blue-900 min-h-screen text-white p-8 relative">
