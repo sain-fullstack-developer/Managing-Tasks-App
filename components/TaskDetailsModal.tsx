@@ -14,7 +14,6 @@ const TaskDetailsModal = ({
 	update: Boolean;
 	addTask: Boolean;
 }) => {
-	const [message, setMessage] = React.useState("");
 	const [titleValue, setTitleValue] = React.useState(data?.title || "");
 	const [descriptionValue, setDescriptionValue] = React.useState(
 		data?.description || ""
@@ -68,7 +67,6 @@ const TaskDetailsModal = ({
 						} else {
 							store.createTask(postData);
 						}
-						setMessage("testing");
 						closeModal();
 					}}>
 					<div className="mb-2 p-4">

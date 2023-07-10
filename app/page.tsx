@@ -13,8 +13,6 @@ function Home() {
 
 	const store = useMemo(() => new TaskStore(), []);
 
-	console.log(process.env.NEXT_PUBLIC_BASE_URL);
-
 	useEffect(() => {
 		async function TasksList() {
 			const response = await store.fetchTasks();
