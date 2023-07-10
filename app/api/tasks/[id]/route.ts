@@ -12,7 +12,7 @@ export async function GET(
 	try {
 		const data = await fs.readFileSync(fileName);
 		const jsonData = JSON.parse(data.toString());
-		const taskData = jsonData.filter((data: MyData) => data.taskId === id);
+		const taskData = jsonData?.filter((data: MyData) => data.taskId === id);
 		const taskId = taskData[0].taskId;
 		if (id === taskId) {
 			return NextResponse.json(
@@ -41,7 +41,7 @@ export async function PUT(
 
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
-	const taskData = jsonData.filter((data: MyData) => data.taskId === id);
+	const taskData = jsonData?.filter((data: MyData) => data.taskId === id);
 
 	if (taskData.length === 0) {
 		return new NextResponse(JSON.stringify({ name: "Task not found" }), {
@@ -63,7 +63,7 @@ export async function DELETE(
 
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
-	const taskData = jsonData.filter((data: MyData) => data.taskId !== id);
+	const taskData = jsonData?.filter((data: MyData) => data.taskId !== id);
 	await fs.writeFileSync(fileName, JSON.stringify(taskData));
 	return NextResponse.json(
 		{
