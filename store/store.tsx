@@ -52,7 +52,6 @@ class TaskStore {
 	async updateTask(task: TaskType) {
 		const { taskId } = task;
 
-		console.log(taskId);
 		try {
 			const response = await axios.put(
 				`http://localhost:3000/api/tasks/${taskId}`,
