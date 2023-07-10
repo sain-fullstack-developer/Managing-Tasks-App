@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-	fastRefresh: true,
-};
+const nextConfig = {};
 
 module.exports = nextConfig;
