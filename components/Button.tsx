@@ -3,7 +3,7 @@ import React from "react";
 interface ButtonTypes {
 	children: React.ReactNode;
 	className: string;
-	type: string;
+	type: "button" | "reset" | "submit" | undefined;
 	handleClick?: () => void;
 }
 

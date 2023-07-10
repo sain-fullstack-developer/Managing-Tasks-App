@@ -41,7 +41,7 @@ const TaskDetailsModal = ({
 					<div
 						onClick={() => {
 							closeModal();
-							addTask && window.location.reload();
+							addTask ? (window.location.href = "/") : "";
 						}}
 						className="text-2xl cursor-pointer">
 						&times;
@@ -134,18 +134,19 @@ const TaskDetailsModal = ({
 							} uppercase bg-slate-400 font-semibold text-black rounded-lg p-4 flex justify-between cursor-pointer relative mt-4`}
 							disabled={!update && !addTask}
 							required>
-							<option value="completed">completed</option>
+							<option value="Select Option">Select Option</option>
 							<option value="todo">todo</option>
 							<option value="inprogress">inprogress</option>
+							<option value="completed">completed</option>
 						</select>
 					</div>
 					{(update || addTask) && (
 						<div className="text-center mb-4">
-							<button
+							<Button
 								type="submit"
-								className="bg-slate-400 text-black font-semibold border-none text-sm tracking-widest rounded-lg p-4 m-auto">
+								className="hover:bg-slate-500 bg-slate-400 text-black font-semibold border-none text-sm tracking-widest rounded-lg p-4 m-auto">
 								{update ? "UPDATE" : addTask ? "ADD TASK" : ""}
-							</button>
+							</Button>
 						</div>
 					)}
 				</form>

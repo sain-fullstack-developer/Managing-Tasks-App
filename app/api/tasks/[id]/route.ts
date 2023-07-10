@@ -1,18 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import { MyData } from "../route";
+import { fileName } from "@/utils/requiredUtils";
 
 export async function GET(
 	request: NextRequest,
 	{ params }: { params: { id: number } }
 ) {
 	const id = params.id;
-	console.log(id);
-	const fileName = `task-data.json`;
-	const data = await fs.readFileSync(fileName);
-	const jsonData = JSON.parse(data.toString());
-	const taskData = jsonData.filter((data: MyData) => data.taskId === id);
-	return NextResponse.json(taskData, { status: 200 });
+
+	try {
+		const data = await fs.readFileSync(fileName);
+		const jsonData = JSON.parse(data.toString());
+		const taskData = jsonData.filter((data: MyData) => data.taskId === id);
+		const taskId = taskData[0].taskId;
+		if (id === taskId) {
+			return NextResponse.json(
+				{ message: "API Data Fetched Successfully!", data: taskData },
+				{ status: 200 }
+			);
+		}
+	} catch (error) {
+		console.error(`API Data Fetching failed! ${error}`);
+	}
 }
 
 export async function PUT(
@@ -29,7 +39,6 @@ export async function PUT(
 		);
 	}
 
-	const fileName = `task-data.json`;
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
 	const taskData = jsonData.filter((data: MyData) => data.taskId === id);
@@ -51,8 +60,7 @@ export async function DELETE(
 	{ params }: { params: { id: number } }
 ) {
 	const id = params.id;
-	console.log(id);
-	const fileName = `task-data.json`;
+
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
 	const taskData = jsonData.filter((data: MyData) => data.taskId !== id);

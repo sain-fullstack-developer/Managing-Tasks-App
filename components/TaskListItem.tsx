@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Button from "./Button";
 import { TaskType } from "@/store/store";
+import Loading from "./Loading";
 
 const TaskListItem = ({
 	data,

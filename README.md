@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Task Management System
+
+This is a task management system application that allows users to create, track, and manage their tasks.
+
+## Features
+
+- Create and manage tasks
+- Add new tasks
+- Edit existing tasks
+- Delete Tasks
+- Every individual contains Title, Description, Status
 
 ## Getting Started
 
-First, run the development server:
+To get started, you will need to install the application. You can do this by cloning the repository from GitHub and running the following command:
 
-```bash
+git clone https://github.com/sain-fullstack-developer/Managing-Tasks-App.git
+
+npm install
+
+Once the application is installed, you can start it by running the following command:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be started on port 3000. You can access it by opening a web browser and navigating to `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The documentation for the task management system application is available on the GitHub repository. You can find the documentation by clicking on the "Documentation" tab.
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions to the task management system application are welcome. You can contribute by submitting bug reports, feature requests, or code changes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The task management system application is licensed under the MIT License. You can find the license information in the LICENSE file.

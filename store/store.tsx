@@ -1,7 +1,6 @@
+import { BASE_URL } from "@/utils/requiredUtils";
 import axios from "axios";
 import { makeAutoObservable } from "mobx";
-
-import { createContext, useContext } from "react";
 
 export interface TaskType {
 	taskId?: number;
@@ -25,7 +24,7 @@ class TaskStore {
 
 	async fetchTasks() {
 		try {
-			const response = await axios.get("http://localhost:3000/api/tasks");
+			const response = await axios.get(BASE_URL);
 			this.tasks = response.data;
 			return this.tasks;
 		} catch (error) {
@@ -35,10 +34,7 @@ class TaskStore {
 
 	async createTask(task: TaskType) {
 		try {
-			const response = await axios.post(
-				"http://localhost:3000/api/tasks",
-				task
-			);
+			const response = await axios.post(BASE_URL, task);
 			if (response.status) {
 				("Task Submitted Successfully!");
 			}
@@ -53,10 +49,7 @@ class TaskStore {
 		const { taskId } = task;
 
 		try {
-			const response = await axios.put(
-				`http://localhost:3000/api/tasks/${taskId}`,
-				task
-			);
+			const response = await axios.put(`${BASE_URL}/${taskId}`, task);
 
 			if (response.status) {
 				("Task Updated and Submitted Successfully!");
@@ -69,9 +62,7 @@ class TaskStore {
 
 	async deleteTask(id: number | undefined) {
 		try {
-			const response = await axios.delete(
-				`http://localhost:3000/api/tasks/${id}`
-			);
+			const response = await axios.delete(`${BASE_URL}/${id}`);
 			this.tasks = this.tasks.filter((task) => task.taskId !== id);
 		} catch (error) {
 			console.error("Error failed task deletion:", error);
@@ -79,16 +70,4 @@ class TaskStore {
 	}
 }
 
-const StoreContext = createContext<TaskStore>(new TaskStore());
-
-const StoreProvider = ({ store, children }: any) => {
-	return (
-		<StoreContext.Provider value={store}>{children}</StoreContext.Provider>
-	);
-};
-
-const useStore = () => {
-	return useContext(StoreContext);
-};
-
-export { TaskStore, StoreProvider, useStore };
+export { TaskStore };
