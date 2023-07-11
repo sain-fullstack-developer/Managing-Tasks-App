@@ -95,7 +95,7 @@ const TaskDetailsModal = ({
 								setTitleValue(evt.target.value)
 							}
 							type="text"
-							className="bg-slate-400 placeholder:text-gray-500 placeholder:tracking-wider outline-none font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
+							className="bg-slate-400 placeholder:text-gray-500 placeholder:font-normal placeholder:tracking-wider outline-none font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
 							required
 						/>
 					</div>
@@ -115,7 +115,7 @@ const TaskDetailsModal = ({
 								setDescriptionValue(evt.target.value)
 							}
 							type="text"
-							className="bg-slate-400 placeholder:text-gray-500 placeholder:tracking-wider outline-none font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
+							className="bg-slate-400 placeholder:text-gray-500 placeholder:font-normal placeholder:tracking-wider outline-none font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
 							required
 						/>
 					</div>
@@ -135,7 +135,7 @@ const TaskDetailsModal = ({
 							title="task-status"
 							className={`${
 								!update ? "disabled" : ""
-							} uppercase bg-slate-400 placeholder:text-gray-500 placeholder:tracking-wider outline-none font-semibold text-black rounded-lg p-4 flex justify-between cursor-pointer relative mt-4`}
+							} uppercase bg-slate-400 placeholder:text-gray-500 placeholder:font-normal placeholder:tracking-wider outline-none font-semibold text-black rounded-lg p-4 flex justify-between cursor-pointer relative mt-4`}
 							disabled={!update && !addTask}
 							required>
 							<option value="Select Option">Select Option</option>
