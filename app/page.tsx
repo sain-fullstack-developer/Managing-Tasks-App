@@ -57,17 +57,17 @@ const Home = () => {
 			<section className="mb-4 p-4 border-onePixel rounded-lg border-white relative">
 				<h2>
 					<ul className="grid grid-cols-2 gap-y-3 sm:grid-cols-3 md:flex md:justify-evenly uppercase tracking-wider font-bold ">
-						<li className="cursor-pointer">
+						<li className="cursor-pointer hover:scale-105 transition-all">
 							Total Tasks <span className="text-slate-400">{TotalCount}</span>
 						</li>
-						<li className="cursor-pointer">
+						<li className="cursor-pointer hover:scale-105 transition-all">
 							ToDos <span className="text-red-600">{ToDosCount}</span>
 						</li>
-						<li className="cursor-pointer">
+						<li className="cursor-pointer hover:scale-105 transition-all">
 							In Progress{" "}
 							<span className="text-yellow-500">{ProgressCount}</span>
 						</li>
-						<li className="cursor-pointer">
+						<li className="cursor-pointer hover:scale-105 transition-all">
 							Completed <span className="text-green-500">{CompletedCount}</span>
 						</li>
 						<li
@@ -77,7 +77,7 @@ const Home = () => {
 								setUpdate(false);
 								setAddTask(true);
 							}}
-							className="hover:bg-slate-500 bg-slate-400 text-black font-semibold p-2 rounded-full text-sm cursor-pointer">
+							className="hover:bg-slate-500 hover:scale-105 transition-all bg-slate-400 text-black font-semibold p-2 rounded-full text-sm cursor-pointer">
 							Add New Task
 						</li>
 					</ul>

@@ -39,6 +39,7 @@ const TaskDetailsModal = ({
 							: "STATUS"}
 					</Button>
 					<div
+						tabIndex={5}
 						onClick={() => {
 							closeModal();
 							addTask ? (window.location.href = "/") : "";
@@ -85,15 +86,16 @@ const TaskDetailsModal = ({
 							Title
 						</label>
 						<input
+							tabIndex={1}
 							title="title"
 							id="titleText"
-							placeholder="title"
+							placeholder="Enter Task Title"
 							value={!update && !addTask ? data?.title : titleValue}
 							onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 								setTitleValue(evt.target.value)
 							}
 							type="text"
-							className="bg-slate-400 font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
+							className="bg-slate-400 placeholder:text-gray-500 placeholder:tracking-wider outline-none font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
 							required
 						/>
 					</div>
@@ -104,15 +106,16 @@ const TaskDetailsModal = ({
 							Description
 						</label>
 						<input
+							tabIndex={2}
 							title="description"
 							id="description"
-							placeholder="description"
+							placeholder="Enter Task Description"
 							value={!update && !addTask ? data?.description : descriptionValue}
 							onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
 								setDescriptionValue(evt.target.value)
 							}
 							type="text"
-							className="bg-slate-400 font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
+							className="bg-slate-400 placeholder:text-gray-500 placeholder:tracking-wider outline-none font-semibold text-black w-full rounded-lg p-4 flex justify-between cursor-pointer relative mt-4"
 							required
 						/>
 					</div>
@@ -123,6 +126,7 @@ const TaskDetailsModal = ({
 							Status
 						</label>
 						<select
+							tabIndex={3}
 							onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
 								setStatusValue(event.currentTarget.value);
 							}}
@@ -131,7 +135,7 @@ const TaskDetailsModal = ({
 							title="task-status"
 							className={`${
 								!update ? "disabled" : ""
-							} uppercase bg-slate-400 font-semibold text-black rounded-lg p-4 flex justify-between cursor-pointer relative mt-4`}
+							} uppercase bg-slate-400 placeholder:text-gray-500 placeholder:tracking-wider outline-none font-semibold text-black rounded-lg p-4 flex justify-between cursor-pointer relative mt-4`}
 							disabled={!update && !addTask}
 							required>
 							<option value="Select Option">Select Option</option>
@@ -143,6 +147,7 @@ const TaskDetailsModal = ({
 					{(update || addTask) && (
 						<div className="text-center mb-4">
 							<Button
+								tabIndex={4}
 								type="submit"
 								className="hover:bg-slate-500 bg-slate-400 text-black font-semibold border-none text-sm tracking-widest rounded-lg p-4 m-auto">
 								{update ? "UPDATE" : addTask ? "ADD TASK" : ""}
