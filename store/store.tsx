@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/utils/requiredUtils";
+import { BASE_URL, MyData } from "@/utils/requiredUtils";
 import axios from "axios";
 import { makeAutoObservable } from "mobx";
 
@@ -71,7 +71,9 @@ class TaskStore {
 			const response = await axios.delete(`${BASE_URL}/${id}`);
 
 			if (this.tasks) {
-				this.tasks = this.tasks?.filter((task) => task.taskId !== id);
+				for (const task of this.tasks) {
+					task.taskId !== id;
+				}
 			}
 		} catch (error) {
 			console.error("Error failed task deletion:", error);

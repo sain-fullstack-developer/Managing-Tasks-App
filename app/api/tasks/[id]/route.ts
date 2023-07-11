@@ -12,11 +12,24 @@ export async function GET(
 	try {
 		const data = await fs.readFileSync(fileName);
 		const jsonData = JSON.parse(data.toString());
-		const taskData = jsonData?.filter((data: MyData) => data.taskId === id);
-		const taskId = taskData[0].taskId;
+		let taskData: MyData[] | undefined;
+		if (jsonData) {
+			taskData = [];
+			for (const data of jsonData) {
+				if (data.taskId === id) {
+					taskData.push(data);
+				}
+			}
+		} else {
+			taskData = undefined;
+		}
+		const taskId = taskData ? taskData[0]?.taskId : "";
 		if (id === taskId) {
 			return NextResponse.json(
-				{ message: "API Data Fetched Successfully!", data: taskData },
+				{
+					message: `API Task Data with ${taskId} Fetched Successfully!`,
+					data: taskData,
+				},
 				{ status: 200 }
 			);
 		}
@@ -41,18 +54,31 @@ export async function PUT(
 
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
-	const taskData = jsonData?.filter((data: MyData) => data.taskId === id);
 
-	if (taskData.length === 0) {
+	let taskData: MyData[] | undefined;
+	if (jsonData) {
+		taskData = [];
+		for (const data of jsonData) {
+			if (data.taskId === id) {
+				taskData.push(data);
+			}
+		}
+	} else {
+		taskData = undefined;
+	}
+
+	if (taskData && taskData.length === 0) {
 		return new NextResponse(JSON.stringify({ name: "Task not found" }), {
 			status: 404,
 		});
 	}
-	taskData[0].title = title;
-	taskData[0].description = description;
-	taskData[0].status = status;
-	await fs.writeFileSync(fileName, JSON.stringify(jsonData));
-	return NextResponse.json(taskData, { status: 200 });
+	if (taskData) {
+		taskData[0].title = title;
+		taskData[0].description = description;
+		taskData[0].status = status;
+		await fs.writeFileSync(fileName, JSON.stringify(jsonData));
+		return NextResponse.json(taskData, { status: 200 });
+	}
 }
 
 export async function DELETE(
@@ -63,13 +89,20 @@ export async function DELETE(
 
 	const data = await fs.readFileSync(fileName);
 	const jsonData = JSON.parse(data.toString());
-	const taskData = jsonData?.filter((data: MyData) => data.taskId !== id);
-	await fs.writeFileSync(fileName, JSON.stringify(taskData));
-	return NextResponse.json(
-		{
-			message: `Task deleted successfully!}`,
-			jsonData,
-		},
-		{ status: 200 }
-	);
+	let taskData: MyData[] | undefined;
+
+	if (jsonData) {
+		taskData = [];
+		for (const data of jsonData) {
+			data.taskId !== id ? taskData.push(data) : undefined;
+		}
+		await fs.writeFileSync(fileName, JSON.stringify(taskData));
+		return NextResponse.json(
+			{
+				message: `Task deleted successfully!}`,
+				jsonData,
+			},
+			{ status: 200 }
+		);
+	}
 }

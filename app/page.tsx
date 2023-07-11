@@ -22,16 +22,29 @@ function Home() {
 		TasksList();
 	}, [store]);
 
+	let ToDosCounts = 0;
+	let ProgressCounts = 0;
+	let CompletedCounts = 0;
+	if (store?.tasks) {
+		for (const task of store.tasks) {
+			if (task.status === "todo") {
+				ToDosCounts++;
+			}
+			if (task.status === "inprogress") {
+				ProgressCounts++;
+			}
+			if (task.status === "completed") {
+				CompletedCounts++;
+			}
+		}
+	} else {
+		ToDosCounts = 0;
+	}
+
+	const ToDosCount = ToDosCounts;
+	const ProgressCount = ProgressCounts;
+	const CompletedCount = CompletedCounts;
 	const TotalCount = store?.tasks?.length;
-	const ToDosCount = store?.tasks
-		? store?.tasks?.filter((task) => task.status === "todo")
-		: "";
-	const ProgressCount = store?.tasks
-		? store?.tasks?.filter((task) => task.status === "inprogress")
-		: "";
-	const CompletedCount = store?.tasks
-		? store?.tasks?.filter((task) => task.status === "completed")
-		: "";
 
 	return (
 		<main className="bg-blue-900 min-h-screen text-white p-8 relative">
@@ -47,15 +60,14 @@ function Home() {
 							Total Tasks <span className="text-slate-400">{TotalCount}</span>
 						</li>
 						<li className="cursor-pointer">
-							ToDos <span className="text-red-600">{ToDosCount.length}</span>
+							ToDos <span className="text-red-600">{ToDosCount}</span>
 						</li>
 						<li className="cursor-pointer">
 							In Progress{" "}
-							<span className="text-yellow-500">{ProgressCount.length}</span>
+							<span className="text-yellow-500">{ProgressCount}</span>
 						</li>
 						<li className="cursor-pointer">
-							Completed{" "}
-							<span className="text-green-500">{CompletedCount.length}</span>
+							Completed <span className="text-green-500">{CompletedCount}</span>
 						</li>
 						<li
 							onClick={() => {
