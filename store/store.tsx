@@ -1,20 +1,12 @@
-import { BASE_URL, MyData } from "@/utils/requiredUtils";
-import axios from "axios";
-import { makeAutoObservable } from "mobx";
+import { TaskType } from "@/utils/requiredUtils";
 
-export interface TaskType {
-	taskId?: number;
-	title: string;
-	description: string;
-	status: string;
-}
+import { makeAutoObservable } from "mobx";
 
 class TaskStore {
 	tasks: TaskType[] = [];
 
 	constructor() {
 		makeAutoObservable(this);
-		this.fetchTasks();
 	}
 
 	resetTask() {
@@ -22,14 +14,17 @@ class TaskStore {
 		return task;
 	}
 
+	getLocalData() {
+		if (typeof window !== "undefined") {
+			const jsonData = localStorage.getItem("jsonData");
+
+			return jsonData ? JSON.parse(jsonData) : "";
+		}
+	}
+
 	async fetchTasks() {
 		try {
-			if (!BASE_URL) {
-				throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
-			}
-			const response = await axios.get(BASE_URL);
-			this.tasks = response.data;
-			return this.tasks;
+			return this.getLocalData();
 		} catch (error) {
 			console.error("Error fetching tasks:", error);
 		}
@@ -37,14 +32,12 @@ class TaskStore {
 
 	async createTask(task: TaskType) {
 		try {
-			if (!BASE_URL) {
-				throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
+			if (typeof window !== "undefined") {
+				let tasks = JSON.parse(localStorage.getItem("jsonData") || "[]");
+				this.tasks.push(task);
+				tasks.push(task);
+				localStorage.setItem("jsonData", JSON.stringify(tasks));
 			}
-			const response = await axios.post(BASE_URL, task);
-			if (response.status) {
-				("Task Submitted Successfully!");
-			}
-
 			window.location.reload();
 		} catch (error) {
 			console.error("Error failed task submission:", error);
@@ -53,12 +46,22 @@ class TaskStore {
 
 	async updateTask(task: TaskType) {
 		const { taskId } = task;
-
 		try {
-			const response = await axios.put(`${BASE_URL}/${taskId}`, task);
-
-			if (response.status) {
-				("Task Updated and Submitted Successfully!");
+			const taskIndex = this.getLocalData()?.findIndex(
+				(t: TaskType) => t.taskId === taskId
+			);
+			if (taskIndex !== -1) {
+				this.getLocalData()[taskIndex] = task;
+				if (typeof window !== "undefined") {
+					let tasks = JSON.parse(localStorage.getItem("jsonData") || "[]");
+					const taskIndexLocalStorage = tasks.findIndex(
+						(t: TaskType) => t.taskId === taskId
+					);
+					if (taskIndexLocalStorage !== -1) {
+						tasks[taskIndexLocalStorage] = task;
+						localStorage.setItem("jsonData", JSON.stringify(tasks));
+					}
+				}
 			}
 			window.location.reload();
 		} catch (error) {
@@ -66,15 +69,17 @@ class TaskStore {
 		}
 	}
 
-	async deleteTask(id: number | undefined) {
+	async deleteTask(id: number | string) {
 		try {
-			const response = await axios.delete(`${BASE_URL}/${id}`);
-
-			if (this.tasks) {
-				for (const task of this.tasks) {
-					task.taskId !== id;
+			const tasks = this.getLocalData();
+			const taskIndex = tasks.findIndex((task: TaskType) => task.taskId === id);
+			if (taskIndex !== -1) {
+				tasks.splice(taskIndex, 1);
+				if (typeof window !== "undefined") {
+					localStorage.setItem("jsonData", JSON.stringify(tasks));
 				}
 			}
+			window.location.reload();
 		} catch (error) {
 			console.error("Error failed task deletion:", error);
 		}

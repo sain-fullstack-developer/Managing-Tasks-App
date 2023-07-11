@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button";
-import { TaskType } from "@/store/store";
+import { TaskType } from "@/utils/requiredUtils";
 
 const TaskListItem = ({
 	data,

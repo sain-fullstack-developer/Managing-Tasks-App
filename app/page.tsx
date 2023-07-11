@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useMemo } from "react";
-import { TaskStore, TaskType } from "../store/store";
+import { TaskStore } from "../store/store";
 import TaskListItem from "@/components/TaskListItem";
 import TaskDetailsModal from "@/components/TaskDetailsModal";
+import { TaskType } from "@/utils/requiredUtils";
 
-function Home() {
+const Home = () => {
 	const [openModel, setOpenModel] = React.useState(false);
 	const [modelData, setModelData] = React.useState<TaskType | null>();
 	const [update, setUpdate] = React.useState<Boolean>(false);
@@ -25,8 +26,8 @@ function Home() {
 	let ToDosCounts = 0;
 	let ProgressCounts = 0;
 	let CompletedCounts = 0;
-	if (store?.tasks) {
-		for (const task of store.tasks) {
+	if (results) {
+		for (const task of results) {
 			if (task.status === "todo") {
 				ToDosCounts++;
 			}
@@ -44,7 +45,7 @@ function Home() {
 	const ToDosCount = ToDosCounts;
 	const ProgressCount = ProgressCounts;
 	const CompletedCount = CompletedCounts;
-	const TotalCount = store?.tasks?.length;
+	const TotalCount = results?.length;
 
 	return (
 		<main className="bg-blue-900 min-h-screen text-white p-8 relative">
@@ -83,10 +84,10 @@ function Home() {
 				</h2>
 			</section>
 			<section className="mb-4 p-4 border-onePixel rounded-lg border-white">
-				{results?.map((task, index) => {
-					console.log(task);
-					return (
-						<>
+				{results &&
+					results?.map((task, index) => {
+						const taskId = task?.taskId ? task?.taskId : "";
+						return (
 							<div key={index}>
 								<TaskListItem
 									handleClickView={() => {
@@ -100,15 +101,14 @@ function Home() {
 										setModelData(task);
 									}}
 									handleClickDelete={() => {
-										store.deleteTask(task?.taskId);
+										store.deleteTask(taskId);
 										window.location.href = "/";
 									}}
 									data={task}
 								/>{" "}
 							</div>
-						</>
-					);
-				})}
+						);
+					})}
 			</section>
 
 			{openModel && (
@@ -121,6 +121,6 @@ function Home() {
 			)}
 		</main>
 	);
-}
+};
 
 export default Home;

@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
-import { TaskStore, TaskType } from "../store/store";
+import { TaskStore } from "../store/store";
 import Button from "./Button";
+import { TaskType, createUniqueRandomId } from "@/utils/requiredUtils";
 
 const TaskDetailsModal = ({
 	data,
@@ -50,6 +51,7 @@ const TaskDetailsModal = ({
 					onSubmit={(e) => {
 						e.preventDefault();
 						const postData = {
+							taskId: createUniqueRandomId(),
 							title: titleValue,
 							description: descriptionValue,
 							status: statusValue,
